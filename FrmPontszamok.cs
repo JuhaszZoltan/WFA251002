@@ -17,15 +17,11 @@ public partial class FrmPontszamok : Form
         nudDiakPontszama.GotFocus += NudDiakPontszamaGotFocus;
     }
 
-    private void NudDiakPontszamaGotFocus(object? sender, EventArgs e)
-    {
+    private void NudDiakPontszamaGotFocus(object? sender, EventArgs e) =>
         nudDiakPontszama.Select(0, 1);
-    }
 
-    private void BtnAtlagClick(object? sender, EventArgs e)
-    {
+    private void BtnAtlagClick(object? sender, EventArgs e) =>
         lblAtlagPont.Text = $"{Dolgozatok.Average(d => d.Pontszam):0.00} pont";
-    }
 
     private void BtnAdatbevitelClick(object? sender, EventArgs e)
     {
@@ -48,10 +44,7 @@ public partial class FrmPontszamok : Form
     private void FrmPontszamokFormClosing(object? sender, FormClosingEventArgs e)
     {
         using StreamWriter sw = new(File, false, Encoding.UTF8);
-        foreach (var d in Dolgozatok)
-        {
-            sw.WriteLine($"{d.Nev};{d.Pontszam}");
-        }
+        foreach (var d in Dolgozatok) sw.WriteLine($"{d.Nev};{d.Pontszam}");
     }
 
     private void FrmPontszamokLoad(object? sender, EventArgs e)
@@ -70,8 +63,6 @@ public partial class FrmPontszamok : Form
         foreach (var d in Dolgozatok) RtbDiakokAddRow(d);
     }
 
-    private void RtbDiakokAddRow(Dolgozat d)
-    {
+    private void RtbDiakokAddRow(Dolgozat d) =>
         rtbDiakok.Text += $"{d.Nev+':',-25}{d.Pontszam,3} pont\n";
-    }
 }
