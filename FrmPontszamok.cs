@@ -29,12 +29,15 @@ public partial class FrmPontszamok : Form
 
     private void BtnAdatbevitelClick(object? sender, EventArgs e)
     {
+        if (string.IsNullOrWhiteSpace(txtDiakNeve.Text)) return;
+
         Dolgozatok.Add(new()
         {
             Nev = txtDiakNeve.Text,
             Pontszam = (int)nudDiakPontszama.Value
         });
-        RtbDiakokUpdate();
+
+        RtbDiakokAddRow(Dolgozatok[^1]);
 
         txtDiakNeve.Clear();
         nudDiakPontszama.Value = 0;
@@ -63,17 +66,12 @@ public partial class FrmPontszamok : Form
                 Pontszam = int.Parse(v[1])
             });
         }
-        RtbDiakokUpdate();
+
+        foreach (var d in Dolgozatok) RtbDiakokAddRow(d);
     }
 
-    private void RtbDiakokUpdate()
+    private void RtbDiakokAddRow(Dolgozat d)
     {
-        rtbDiakok.Clear();
-
-        foreach (var d in Dolgozatok)
-        {
-            rtbDiakok.Text +=
-                $"{d.Nev+':',-25}{d.Pontszam,3} pont\n";
-        }
+        rtbDiakok.Text += $"{d.Nev+':',-25}{d.Pontszam,3} pont\n";
     }
 }
